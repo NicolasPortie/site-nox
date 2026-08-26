@@ -560,21 +560,20 @@ button { cursor: pointer; }
   min-height: 100dvh;
   overflow: hidden;
   isolation: isolate;
-  padding: clamp(8rem, 15vw, 14rem) 0 clamp(6rem, 10vw, 9rem);
+  padding: clamp(5rem, 8vw, 8rem) 0 clamp(6rem, 10vw, 9rem);
 }
 
 .drop-intro-word {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  color: rgba(11, 7, 7, 0.15);
+  right: clamp(1rem, 5vw, 5rem);
+  bottom: clamp(2.5rem, 8vh, 6rem);
+  color: rgba(11, 7, 7, 0.08);
   font-family: var(--font-display);
-  font-size: clamp(3rem, 16vw, 19rem);
+  font-size: clamp(3rem, 13vw, 14rem);
   font-weight: 900;
   letter-spacing: -0.1em;
   line-height: 0.7;
   pointer-events: none;
-  transform: translate(-50%, -50%);
   white-space: nowrap;
 }
 
@@ -584,8 +583,10 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(18rem, 0.9fr);
   gap: clamp(3rem, 9vw, 11rem);
-  align-items: center;
+  align-items: start;
 }
+
+.drop-intro-copy { padding-top: clamp(0.5rem, 3vh, 2.5rem); }
 
 .drop-intro-copy h2 {
   max-width: 8ch;
@@ -606,6 +607,24 @@ button { cursor: pointer; }
   width: min(100%, 35rem);
   margin: 0;
   justify-self: end;
+}
+
+.drop-intro-figure .media-reveal {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--red);
+}
+
+.drop-intro-figure .media-reveal::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--red) 0%, transparent 10%, transparent 90%, var(--red) 100%),
+    linear-gradient(180deg, var(--red) 0%, transparent 11%, transparent 89%, var(--red) 100%);
 }
 
 .drop-intro-figure img {
@@ -1741,9 +1760,11 @@ html.motion-pending .hero-line > span {
 
 .name-marquee-track {
   display: flex;
+  flex: 0 0 auto;
   width: max-content;
   gap: 0;
   animation: marquee-shift 28s linear infinite;
+  will-change: transform;
 }
 
 .name-marquee-track span {
@@ -1799,6 +1820,7 @@ html.motion-pending .hero-line > span {
   .campaign-section,
   .symbol-content { grid-template-columns: 1fr; }
 
+  .drop-intro-copy { padding-top: 0; }
   .drop-intro-figure { justify-self: start; width: min(100%, 31rem); }
 
   .product-sequence-label { top: 7rem; width: min(18rem, 72vw); }
@@ -1884,7 +1906,7 @@ html.motion-pending .hero-line > span {
   }
   .lookbook-card { scroll-snap-align: start; }
 
-  .drop-intro-word { top: 35%; font-size: 15vw; }
+  .drop-intro-word { display: none; }
 
   .drop-intro-copy h2,
   .statement-content h2,
@@ -1905,6 +1927,17 @@ html.motion-pending .hero-line > span {
   .campaign-copy > p,
   .collection-heading > p,
   .lookbook-heading > p { font-size: 1.08rem; }
+
+  .drop-intro-section { padding-top: 4.5rem; padding-bottom: 5rem; }
+  .drop-intro-frame { gap: clamp(3.5rem, 8vh, 6rem); }
+  .drop-intro-copy h2 { max-width: 9ch; font-size: clamp(3.2rem, 15vw, 5.4rem); }
+  .drop-intro-copy > p { max-width: 22rem; margin-top: 1.25rem; font-size: 1rem; }
+  .drop-intro-figure {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+  .drop-intro-figure img { aspect-ratio: 0.92 / 1; }
+  .drop-intro-figure figcaption { padding-inline: 1rem; }
 
   .product-sequence-inner { height: 100%; }
   .product-sequence-label { top: 6rem; left: 0; width: min(16rem, 78vw); }
