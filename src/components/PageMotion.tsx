@@ -1,9 +1,79 @@
+import { useRef } from 'react';
 import { useLocale } from '../i18n/locale';
 import { gsap, prefersReducedMotion, ScrollTrigger, SplitText, useGSAP } from '../lib/gsap';
-import { onSplitRevert } from '../lib/split-text';
+import { getLandingHash, normalizeLandingHash } from '../lib/motion';
+import { onceRevert, onSplitRevert } from '../lib/split-text';
+
+const passed = (element: Element, ratio = 0.88) =>
+  element.getBoundingClientRect().top < window.innerHeight * ratio;
 
 export function PageMotion() {
   const { locale } = useLocale();
+  const landingDone = useRef(false);
+
+  useGSAP(() => {
+    const reduce = prefersReducedMotion();
+    if (reduce) return undefined;
+
+    const splits: SplitText[] = [];
+
+    gsap.utils.toArray<HTMLElement>('.reveal-text').forEach((element) => {
+      if (passed(element)) return;
+
+      const nestedLines = [...element.querySelectorAll<HTMLElement>(':scope > .drop-title-line')];
+      if (nestedLines.length) {
+        nestedLines.forEach((line) => {
+          const inner = line.querySelector(':scope > span') ?? line;
+          gsap.from(inner, {
+            yPercent: 115,
+            duration: 0.95,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 84%',
+              once: true,
+            },
+          });
+        });
+        return;
+      }
+
+      if (element.childElementCount > 0) return;
+
+      splits.push(
+        onceRevert(
+          SplitText.create(element, {
+            type: 'lines',
+            mask: 'lines',
+            autoSplit: false,
+            aria: 'none',
+            onSplit(self) {
+              return gsap.from(self.lines, {
+                yPercent: 115,
+                duration: 0.95,
+                stagger: 0.065,
+                ease: 'power4.out',
+                scrollTrigger: {
+                  trigger: element,
+                  start: 'top 84%',
+                  once: true,
+                },
+              });
+            },
+          }),
+        ),
+      );
+    });
+
+    const unregisterSplits = onSplitRevert(() => {
+      splits.forEach((split) => split.revert());
+    });
+
+    return () => {
+      unregisterSplits();
+      splits.forEach((split) => split.revert());
+    };
+  }, { dependencies: [locale], revertOnUpdate: true });
 
   useGSAP((_context, contextSafe) => {
     const root = document.documentElement;
@@ -17,39 +87,6 @@ export function PageMotion() {
         root.classList.remove('motion-ready', 'motion-reduced');
       };
     }
-
-    const splits: SplitText[] = [];
-
-    gsap.utils.toArray<HTMLElement>('.reveal-text').forEach((element) => {
-      splits.push(
-        SplitText.create(element, {
-          type: 'lines',
-          mask: 'lines',
-          autoSplit: true,
-          aria: 'auto',
-          onSplit(self) {
-            return gsap.from(self.lines, {
-              yPercent: 115,
-              duration: 0.95,
-              stagger: 0.065,
-              ease: 'power4.out',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 84%',
-                once: true,
-              },
-            });
-          },
-        }),
-      );
-    });
-
-    const unregisterSplits = onSplitRevert(() => {
-      splits.forEach((split) => split.revert());
-    });
-
-    const passed = (element: Element, ratio = 0.88) =>
-      element.getBoundingClientRect().top < window.innerHeight * ratio;
 
     gsap.utils.toArray<HTMLElement>('.media-reveal').forEach((wrap) => {
       const image = wrap.querySelector('img');
@@ -149,7 +186,7 @@ export function PageMotion() {
       }
     }
 
-    const symbolRows = gsap.utils.toArray<HTMLElement>('.symbol-applications div');
+    const symbolRows = gsap.utils.toArray<HTMLElement>('.symbol-row');
     if (symbolRows.length) {
       const symbolWrap = document.querySelector('.symbol-applications');
       if (symbolWrap && passed(symbolWrap, 0.82)) {
@@ -233,8 +270,8 @@ export function PageMotion() {
     root.classList.remove('motion-pending');
 
     const scrollToHash = () => {
-      const hash = window.location.hash;
-      if (!hash || hash.length < 2) return;
+      const hash = getLandingHash();
+      if (!hash) return;
       const destination = document.querySelector<HTMLElement>(hash);
       if (!destination) return;
       gsap.set(window, { scrollTo: destination });
@@ -244,8 +281,11 @@ export function PageMotion() {
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
     };
+    normalizeLandingHash();
     requestAnimationFrame(() => {
       refresh();
+      if (landingDone.current) return;
+      landingDone.current = true;
       scrollToHash();
     });
     window.addEventListener('load', refresh);
@@ -253,14 +293,12 @@ export function PageMotion() {
     void document.fonts?.ready.then(refresh);
 
     return () => {
-      unregisterSplits();
-      splits.forEach((split) => split.revert());
       if (onNavClick) document.removeEventListener('click', onNavClick);
       window.removeEventListener('load', refresh);
       window.removeEventListener('hashchange', scrollToHash);
       root.classList.remove('motion-ready');
     };
-  }, { dependencies: [locale] });
+  }, { dependencies: [] });
 
   return null;
 }

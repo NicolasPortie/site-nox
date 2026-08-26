@@ -39,16 +39,16 @@ export function LookSection({
             <img src="/assets/optimized/nor-human-look-beanie-catalog.webp" alt={t.lookPortraitAlt} loading="lazy" />
           </div>
           <button className="look-hotspot look-hotspot--chest" type="button" onClick={() => onAdd(jacket)}>
-            Tech Shell
+            {t.lookJacket}
           </button>
           <button className="look-hotspot look-hotspot--head" type="button" onClick={() => onAdd(beanie)}>
-            Signal Beanie
+            {t.lookBeanie}
           </button>
           <button className="look-hotspot look-hotspot--leg" type="button" onClick={() => onAdd(cargo)}>
-            Cargo 01
+            {t.lookCargo}
           </button>
           <button className="look-hotspot look-hotspot--shoe" type="button" onClick={() => onAdd(sneaker)}>
-            NØR 001
+            {t.lookSneaker}
           </button>
         </div>
 
@@ -57,7 +57,7 @@ export function LookSection({
             <div className="media-reveal">
               <img src="/assets/optimized/nor-human-shell-detail.webp" alt={t.lookShellAlt} loading="lazy" />
             </div>
-            <span>Tech Shell</span>
+            <span>{t.lookJacket}</span>
           </div>
           <div className="look-detail-image look-detail-image--small">
             <div className="media-reveal">

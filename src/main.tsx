@@ -106,7 +106,11 @@ function App() {
           <div className="drop-intro-frame content-frame">
             <div className="drop-intro-copy">
               <h2 id="drop-title" className="reveal-text">
-                {t.dropTitle}
+                {t.dropTitle.split('\n').map((line, index) => (
+                  <span className="drop-title-line" key={index}>
+                    <span>{line}</span>
+                  </span>
+                ))}
               </h2>
               <p className="reveal-text">{t.dropBody}</p>
               <a className="text-link reveal-fade" href="#outerwear">
@@ -122,7 +126,7 @@ function App() {
                   decoding="async"
                 />
               </div>
-              <figcaption>{t.dropCaption}</figcaption>
+              <figcaption className="sr-only">{t.dropCaption}</figcaption>
             </figure>
           </div>
         </section>
@@ -136,9 +140,22 @@ function App() {
           </div>
           <div className="content-frame statement-content">
             <h2 id="statement-title">
-              {t.statementTitle}
+              {t.statementTitle.split('\n').map((line, index) => (
+                <span className="statement-title-line" key={index}>
+                  {line}
+                </span>
+              ))}
             </h2>
+            <p className="statement-place">{t.statementPlace}</p>
             <p className="reveal-text">{t.statementBody}</p>
+            <ul className="statement-facts">
+              {t.statementFacts.map((fact) => (
+                <li key={fact.label}>
+                  <span>{fact.label}</span>
+                  <strong>{fact.value}</strong>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -166,13 +183,18 @@ function App() {
           </div>
           <div className="symbol-line" aria-hidden="true" />
           <div className="symbol-content content-frame">
-            <h2 id="symbol-title" className="reveal-text">
-              {t.symbolTitle}
-            </h2>
+            <div className="symbol-copy">
+              <h2 id="symbol-title" className="reveal-text">
+                {t.symbolTitle}
+              </h2>
+              <p className="symbol-body reveal-text">{t.symbolBody}</p>
+            </div>
             <div className="symbol-applications reveal-fade">
-              {t.symbolItems.map((item) => (
-                <div key={item}>
-                  <p>{item}</p>
+              {t.symbolItems.map((item, index) => (
+                <div className="symbol-row" key={item.name}>
+                  <span className="symbol-index">{String(index + 1).padStart(2, '0')}</span>
+                  <p className="symbol-name">{item.name}</p>
+                  <span className="symbol-place">{item.place}</span>
                 </div>
               ))}
             </div>

@@ -6,6 +6,8 @@ import { SplitText } from 'gsap/SplitText';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger, SplitText);
 gsap.defaults({ ease: 'power3.out' });
+ScrollTrigger.clearScrollMemory('manual');
+history.scrollRestoration = 'manual';
 
 export { gsap, ScrollToPlugin, ScrollTrigger, SplitText, useGSAP };
 

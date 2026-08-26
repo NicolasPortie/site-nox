@@ -3,19 +3,19 @@ import type { Localized, Product } from '../types';
 export const products: Product[] = [
   {
     id: '01',
-    name: 'NØR Tech Shell 01',
-    category: { pt: 'Casaco', en: 'Jacket' },
+    name: { pt: 'NØR Jaqueta 01', en: 'NØR Tech Shell 01' },
+    category: { pt: 'Jaqueta', en: 'Jacket' },
     detail: { pt: 'Nylon / linha vermelha', en: 'Nylon / red line' },
     image: '/assets/optimized/nor-tech-shell.webp',
     modelImage: '/assets/optimized/nor-human-shell-detail.webp',
     imageAlt: {
-      pt: 'Jaqueta NØR Tech Shell preta com logo no peito, Ø e linha vermelha no zíper',
+      pt: 'Jaqueta NØR preta com logo no peito, Ø e linha vermelha no zíper',
       en: 'Black NØR Tech Shell jacket with chest logo, Ø and a red line on the zip',
     },
   },
   {
     id: '02',
-    name: 'NØR Cargo 01',
+    name: { pt: 'NØR Cargo 01', en: 'NØR Cargo 01' },
     category: { pt: 'Calça', en: 'Pants' },
     detail: { pt: 'Cargo / bolsos', en: 'Cargo / pockets' },
     image: '/assets/optimized/nor-cargo-01.webp',
@@ -27,7 +27,7 @@ export const products: Product[] = [
   },
   {
     id: '03',
-    name: 'NØR 001',
+    name: { pt: 'NØR 001', en: 'NØR 001' },
     category: { pt: 'Tênis', en: 'Sneaker' },
     detail: { pt: 'Sola vermelha', en: 'Red sole' },
     image: '/assets/optimized/nor-001-sneaker.webp',
@@ -39,7 +39,7 @@ export const products: Product[] = [
   },
   {
     id: '04',
-    name: 'NØR Core Tee',
+    name: { pt: 'NØR Camiseta', en: 'NØR Core Tee' },
     category: { pt: 'Camiseta', en: 'Tee' },
     detail: { pt: 'Algodão / etiqueta na barra', en: 'Cotton / hem label' },
     image: '/assets/optimized/nor-tee-01.webp',
@@ -51,7 +51,7 @@ export const products: Product[] = [
   },
   {
     id: '05',
-    name: 'NØR Signal Beanie',
+    name: { pt: 'NØR Gorro', en: 'NØR Signal Beanie' },
     category: { pt: 'Gorro', en: 'Beanie' },
     detail: { pt: 'Malha / etiqueta vermelha', en: 'Knit / red label' },
     image: '/assets/optimized/nor-beanie-01.webp',
@@ -63,7 +63,7 @@ export const products: Product[] = [
   },
   {
     id: '06',
-    name: 'NØR Signal Cap 01',
+    name: { pt: 'NØR Boné 01', en: 'NØR Signal Cap 01' },
     category: { pt: 'Boné', en: 'Cap' },
     detail: { pt: 'Boné / Ø na lateral', en: 'Cap / Ø on the side' },
     image: '/assets/optimized/nor-signal-cap-01.webp',
@@ -75,25 +75,25 @@ export const products: Product[] = [
   },
   {
     id: '07',
-    name: 'NØR Utility Tag',
-    category: { pt: 'Bag', en: 'Bag' },
-    detail: { pt: 'Bag / fita vermelha', en: 'Bag / red strap' },
+    name: { pt: 'NØR Bolsa', en: 'NØR Utility Tag' },
+    category: { pt: 'Bolsa', en: 'Bag' },
+    detail: { pt: 'Bolsa / fita vermelha', en: 'Bag / red strap' },
     image: '/assets/optimized/nor-utility-01.webp',
     modelImage: '/assets/optimized/nor-human-utility-fit.webp',
     imageAlt: {
-      pt: 'Bag NØR preta com fita vermelha e puxador Ø',
+      pt: 'Bolsa NØR preta com fita vermelha e puxador Ø',
       en: 'Black NØR bag with a red strap and Ø pull',
     },
   },
   {
     id: '08',
-    name: 'NØR Modular Vest 01',
+    name: { pt: 'NØR Colete 01', en: 'NØR Modular Vest 01' },
     category: { pt: 'Colete', en: 'Vest' },
     detail: { pt: 'Ripstop / bolsos modulares', en: 'Ripstop / modular pockets' },
     image: '/assets/optimized/nor-modular-vest-01.webp',
     modelImage: '/assets/optimized/nor-human-woman-modular-vest.webp',
     imageAlt: {
-      pt: 'Colete técnico NØR preto com gola alta, bolsos modulares, hardware Ø e straps laterais',
+      pt: 'Colete técnico NØR preto com gola alta, bolsos modulares, peças Ø e tiras laterais',
       en: 'Black NØR technical vest with high collar, modular pockets, Ø hardware and side straps',
     },
   },
@@ -138,12 +138,12 @@ export const lookbookStories: {
   },
   {
     src: '/assets/optimized/nor-human-shell-detail.webp',
-    label: { pt: 'Tech Shell', en: 'Tech Shell' },
-    alt: { pt: 'Homem de jaqueta Tech Shell NØR', en: 'Man in the NØR Tech Shell jacket' },
+    label: { pt: 'Jaqueta', en: 'Jacket' },
+    alt: { pt: 'Homem de jaqueta NØR', en: 'Man in the NØR Tech Shell jacket' },
   },
   {
     src: '/assets/optimized/nor-human-cargo-fit.webp',
-    label: { pt: 'Cargo 01', en: 'Cargo 01' },
+    label: { pt: 'Cargo', en: 'Cargo' },
     alt: {
       pt: 'Homem de calça cargo NØR',
       en: 'Man in NØR cargo pants',
@@ -156,29 +156,18 @@ export const lookbookStories: {
   },
   {
     src: '/assets/optimized/nor-human-utility-fit.webp',
-    label: { pt: 'Utility Tag', en: 'Utility Tag' },
+    label: { pt: 'Bolsa', en: 'Bag' },
     alt: {
-      pt: 'Homem com a bag NØR cruzada',
+      pt: 'Homem com a bolsa NØR cruzada',
       en: 'Man wearing the NØR bag across the body',
     },
   },
   {
     src: '/assets/optimized/nor-human-woman-modular-vest.webp',
-    label: { pt: 'Modular Vest', en: 'Modular Vest' },
+    label: { pt: 'Colete', en: 'Vest' },
     alt: {
-      pt: 'Mulher usando o colete Modular Vest NØR com camiseta, cargo e tênis 001',
+      pt: 'Mulher usando o colete NØR com camiseta, cargo e tênis 001',
       en: 'Woman wearing the NØR Modular Vest with tee, cargo pants and 001 sneaker',
     },
   },
-];
-
-export const marqueeNames = [
-  'Tech Shell',
-  'Cargo 01',
-  'NØR 001',
-  'Core Tee',
-  'Signal Beanie',
-  'Signal Cap',
-  'Utility Tag',
-  'Modular Vest',
 ];

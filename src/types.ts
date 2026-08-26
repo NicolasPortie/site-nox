@@ -7,7 +7,7 @@ export type Localized = {
 
 export type Product = {
   id: string;
-  name: string;
+  name: Localized;
   category: Localized;
   detail: Localized;
   image: string;

@@ -1,7 +1,8 @@
-import { marqueeNames } from '../data/catalog';
+import { useCopy } from '../i18n/locale';
 
 export function NameMarquee() {
-  const loop = [...marqueeNames, ...marqueeNames];
+  const t = useCopy();
+  const loop = [...t.marqueeNames, ...t.marqueeNames];
 
   return (
     <div className="name-marquee" aria-hidden="true">

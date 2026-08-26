@@ -9,12 +9,19 @@ export function IntroCurtain() {
   useGSAP(() => {
     if (skip) return undefined;
 
+    const root = document.documentElement;
     const curtain = document.querySelector<HTMLElement>('.intro-curtain');
     const mark = document.querySelector<HTMLElement>('.intro-curtain span');
     if (!curtain || !mark) return undefined;
 
+    root.classList.add('intro-lock');
+    window.scrollTo(0, 0);
+
     const timeline = gsap.timeline({
-      onComplete: () => setDone(true),
+      onComplete: () => {
+        root.classList.remove('intro-lock');
+        setDone(true);
+      },
     });
 
     timeline.fromTo(
@@ -28,6 +35,11 @@ export function IntroCurtain() {
       { yPercent: -100, duration: 0.95, ease: 'power4.inOut' },
       0.68,
     );
+
+    return () => {
+      timeline.kill();
+      root.classList.remove('intro-lock');
+    };
   });
 
   if (skip) return null;

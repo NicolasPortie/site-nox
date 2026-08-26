@@ -54,7 +54,7 @@ export function LookbookPan() {
 
       return () => media.revert();
     },
-    { scope: wrapRef },
+    { scope: wrapRef, dependencies: [] },
   );
 
   return (
@@ -63,16 +63,15 @@ export function LookbookPan() {
         <h2 id="lookbook-title" className="reveal-text">
           {t.lookbookTitle}
         </h2>
-        <p className="reveal-text">{t.lookbookBody}</p>
       </div>
 
       <div ref={trackRef} className="lookbook-track">
-        {lookbookStories.map((story) => (
+        {lookbookStories.map((story, index) => (
           <figure className="lookbook-card" key={story.src}>
             <div className="lookbook-media">
               <img src={story.src} alt={tx(story.alt, locale)} decoding="async" />
             </div>
-            <figcaption>{tx(story.label, locale)}</figcaption>
+            <figcaption>{t.lookNumber(index + 1)}</figcaption>
           </figure>
         ))}
       </div>

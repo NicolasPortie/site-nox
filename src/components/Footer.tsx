@@ -1,6 +1,5 @@
 import { ArrowUp } from '@phosphor-icons/react/dist/csr/ArrowUp';
 import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight';
-import { InstagramLogo } from '@phosphor-icons/react/dist/csr/InstagramLogo';
 import { type FormEvent, useState } from 'react';
 import { useCopy } from '../i18n/locale';
 
@@ -28,12 +27,8 @@ export function Footer() {
           </div>
           <div>
             <span className="footer-label">{t.footerSocial}</span>
-            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
-              Instagram <InstagramLogo size={15} weight="light" aria-hidden="true" />
-            </a>
-            <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer">
-              TikTok <ArrowUpRight size={15} weight="light" aria-hidden="true" />
-            </a>
+            <p className="footer-soon">Instagram — {t.footerSocialSoon}</p>
+            <p className="footer-soon">TikTok — {t.footerSocialSoon}</p>
           </div>
         </div>
         <div className="footer-newsletter">
@@ -54,7 +49,7 @@ export function Footer() {
         </div>
       </div>
       <div className="footer-bottom content-frame">
-        <span>São Paulo, Brasil</span>
+        <span>{t.footerCity}</span>
         <span>© 2026 NØR</span>
         <a href="#top">
           {t.footerTop} <ArrowUp size={15} weight="light" aria-hidden="true" />

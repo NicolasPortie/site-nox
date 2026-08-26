@@ -10,6 +10,27 @@
       content="NØR Drop 001. Oito peças em preto e vermelho."
     />
     <title>NØR / Drop 001</title>
+    <script>
+      history.scrollRestoration = 'manual';
+      (function () {
+        var allowed = {
+          top: 1,
+          film: 1,
+          drop: 1,
+          about: 1,
+          look: 1,
+          fit: 1,
+          shop: 1,
+          system: 1,
+          campaign: 1,
+        };
+        var id = location.hash.slice(1);
+        if (location.hash && !allowed[id]) {
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+        if (!location.hash) window.scrollTo(0, 0);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -101,14 +101,14 @@ export function CartDrawer({ open, items, onClose, onRemove, onUpdateQuantity }:
                   <img src={item.image} alt="" />
                   <div className="cart-line-copy">
                     <span>{tx(item.category, locale)}</span>
-                    <h3>{item.name}</h3>
+                    <h3>{tx(item.name, locale)}</h3>
                     <div className="cart-line-actions">
                       <div className="cart-qty">
                         <button
                           type="button"
                           className="qty-button"
                           onClick={() => onUpdateQuantity(item.id, -1)}
-                          aria-label={t.cartMinus(item.name)}
+                          aria-label={t.cartMinus(tx(item.name, locale))}
                         >
                           <Minus size={13} weight="light" aria-hidden="true" />
                         </button>
@@ -117,12 +117,12 @@ export function CartDrawer({ open, items, onClose, onRemove, onUpdateQuantity }:
                           type="button"
                           className="qty-button"
                           onClick={() => onUpdateQuantity(item.id, 1)}
-                          aria-label={t.cartPlus(item.name)}
+                          aria-label={t.cartPlus(tx(item.name, locale))}
                         >
                           <Plus size={13} weight="light" aria-hidden="true" />
                         </button>
                       </div>
-                      <button type="button" className="cart-remove" onClick={() => onRemove(item.id)} aria-label={t.cartRemoveItem(item.name)}>
+                      <button type="button" className="cart-remove" onClick={() => onRemove(item.id)} aria-label={t.cartRemoveItem(tx(item.name, locale))}>
                         {t.cartRemove}
                       </button>
                     </div>

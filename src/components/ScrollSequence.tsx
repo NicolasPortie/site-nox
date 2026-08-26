@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCopy, useLocale } from '../i18n/locale';
 import { gsap, prefersReducedMotion, ScrollTrigger, useGSAP, viewportPin } from '../lib/gsap';
 
@@ -24,7 +24,8 @@ export function ScrollSequence() {
       const title = section?.querySelector('#hero-title');
       if (!section || !video || !progress || !mark || !title) return undefined;
 
-      const beats = [...title.querySelectorAll<HTMLElement>('.hero-beat')];
+      const currentBeats = () => [...title.querySelectorAll<HTMLElement>('.hero-beat')];
+      let beats = currentBeats();
       const reduce = prefersReducedMotion();
       let seekFrame: number | undefined;
       let requestedTime = 0;
@@ -38,6 +39,11 @@ export function ScrollSequence() {
       pauseVideo();
 
       const showBeat = (index: number, duration = 0.48) => {
+        const nextBeats = currentBeats();
+        if (nextBeats[0] !== beats[0]) {
+          activeBeat = -1;
+          beats = nextBeats;
+        }
         if (index === activeBeat || !beats[index]) return;
         activeBeat = index;
         beats.forEach((beat, i) => {
@@ -123,8 +129,23 @@ export function ScrollSequence() {
         if (seekFrame) cancelAnimationFrame(seekFrame);
       };
     },
-    { scope: sectionRef, dependencies: [locale], revertOnUpdate: true },
+    { scope: sectionRef, dependencies: [] },
   );
+
+  useEffect(() => {
+    const title = sectionRef.current?.querySelector('#hero-title');
+    const section = sectionRef.current;
+    if (!title || !section) return;
+    const beats = [...title.querySelectorAll<HTMLElement>('.hero-beat')];
+    if (!beats.length) return;
+    const trigger = ScrollTrigger.getAll().find((st) => st.trigger === section);
+    const progress = trigger?.progress ?? 0;
+    const index = progress < 0.3 ? 0 : progress < 0.62 ? 1 : Math.min(2, beats.length - 1);
+    beats.forEach((beat, i) => {
+      const offset = beat.offsetHeight + 28;
+      gsap.set(beat, { y: i === index ? 0 : i < index ? -offset : offset });
+    });
+  }, [locale]);
 
   return (
     <section ref={sectionRef} id="film" className="sequence-section nor-red" aria-labelledby="hero-title">
@@ -151,7 +172,7 @@ export function ScrollSequence() {
           </p>
           <h1 id="hero-title" className="hero-title">
             {t.filmBeats.map((beat, index) => (
-              <span className="hero-beat" key={`${locale}-${beat[0]}-${beat[1]}`} aria-hidden={index > 0 || undefined}>
+              <span className="hero-beat" key={index} aria-hidden={index > 0 || undefined}>
                 <span className="hero-line">
                   <span>{beat[0]}</span>
                 </span>

@@ -33,8 +33,9 @@ function ProductTile({ product, onAdd }: { product: Product; onAdd: (product: Pr
       <div className="product-tile-meta">
         <div>
           <span className="tile-category">{tx(product.category, locale)}</span>
-          <h3>{product.name}</h3>
+          <h3>{tx(product.name, locale)}</h3>
           <p>{tx(product.detail, locale)}</p>
+          <p className="tile-status">{t.comingSoon}</p>
         </div>
         <button className="tile-add" type="button" onClick={() => onAdd(product)}>
           <Plus size={17} weight="light" aria-hidden="true" />
