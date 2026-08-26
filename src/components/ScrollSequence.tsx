@@ -17,6 +17,7 @@ export function ScrollSequence() {
       const section = sectionRef.current;
       const video = videoRef.current;
       const progress = progressRef.current;
+      const progressTrack = progress?.parentElement;
       const mark = markRef.current;
       const kicker = kickerRef.current;
       const bottom = bottomRef.current;
@@ -111,6 +112,8 @@ export function ScrollSequence() {
       sequence.to(video, { scale: 1, duration: 1 }, 0);
       sequence.to(progress, { scaleX: 1, duration: 1 }, 0);
       sequence.fromTo(mark, { opacity: 0.08, scale: 0.9 }, { opacity: 0.38, scale: 1.06, duration: 1 }, 0);
+      if (bottom) sequence.to(bottom, { autoAlpha: 0, duration: 0.16 }, 0.84);
+      if (progressTrack) sequence.to(progressTrack, { autoAlpha: 0, duration: 0.16 }, 0.84);
 
       const refresh = () => ScrollTrigger.refresh();
       video.addEventListener('loadedmetadata', refresh);

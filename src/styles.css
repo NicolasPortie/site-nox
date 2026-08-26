@@ -399,7 +399,8 @@ button { cursor: pointer; }
   width: max-content;
   max-width: 100%;
   overflow: hidden;
-  padding-inline-end: 0.08em;
+  padding: 0.09em 0.14em 0.16em 0.08em;
+  margin: -0.09em -0.14em -0.16em -0.08em;
 }
 
 .hero-beat {
@@ -454,6 +455,7 @@ button { cursor: pointer; }
   line-height: 0.92;
   padding-bottom: 0.08em;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .sequence-copy h1 {
@@ -563,16 +565,16 @@ button { cursor: pointer; }
 
 .drop-intro-word {
   position: absolute;
-  top: 52%;
-  left: -0.05em;
+  top: 50%;
+  left: 50%;
   color: rgba(11, 7, 7, 0.15);
   font-family: var(--font-display);
-  font-size: clamp(8rem, 23vw, 26rem);
+  font-size: clamp(3rem, 16vw, 19rem);
   font-weight: 900;
-  letter-spacing: -0.14em;
+  letter-spacing: -0.1em;
   line-height: 0.7;
   pointer-events: none;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   white-space: nowrap;
 }
 
@@ -833,11 +835,15 @@ button { cursor: pointer; }
   margin-inline: auto;
 }
 
-.look-copy { padding-top: clamp(1rem, 7vw, 7rem); }
+.look-copy {
+  min-width: 0;
+  padding-top: clamp(1rem, 7vw, 7rem);
+  container-type: inline-size;
+}
 
 .look-copy h2 {
-  max-width: 7ch;
-  font-size: clamp(3.9rem, 7.8vw, 8rem);
+  max-width: 100%;
+  font-size: clamp(3.5rem, 16cqi, 6rem);
 }
 
 .look-copy > p {
@@ -1127,10 +1133,10 @@ button { cursor: pointer; }
 .symbol-giant {
   position: absolute;
   top: 50%;
-  left: 52%;
-  color: rgba(11, 7, 7, 0.19);
+  left: 65%;
+  color: rgba(11, 7, 7, 0.13);
   font-family: var(--font-display);
-  font-size: clamp(24rem, 55vw, 62rem);
+  font-size: clamp(15rem, 32vw, 42rem);
   font-weight: 900;
   line-height: 0.55;
   transform: translate(-50%, -50%);
@@ -1138,13 +1144,7 @@ button { cursor: pointer; }
 }
 
 .symbol-line {
-  position: absolute;
-  top: 50%;
-  left: -10%;
-  width: 120%;
-  height: 1px;
-  background: rgba(11, 7, 7, 0.55);
-  transform: rotate(-26deg);
+  display: none;
 }
 
 .symbol-content {
@@ -1184,17 +1184,29 @@ button { cursor: pointer; }
   padding: clamp(8rem, 15vw, 15rem) clamp(1.5rem, 7vw, 8rem);
 }
 
-.campaign-media { max-width: 48rem; margin: 0 auto; }
+.campaign-media {
+  display: grid;
+  width: min(100%, 48rem);
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--red-deep);
+}
 
 .campaign-media img {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: 50% 22%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   filter: saturate(0.78) contrast(1.08);
 }
 
-.campaign-copy h2 { max-width: 7ch; font-size: clamp(4.3rem, 8vw, 9rem); }
+.campaign-copy { min-width: 0; container-type: inline-size; }
+
+.campaign-copy h2 {
+  max-width: 100%;
+  font-size: clamp(3.35rem, 17cqi, 7.8rem);
+}
 
 .campaign-copy > p {
   max-width: 21rem;
@@ -1626,13 +1638,14 @@ html.motion-pending .hero-line > span {
 }
 
 .intro-mark {
-  margin: 0;
+  margin: -0.12em;
+  padding: 0.12em;
   overflow: hidden;
   font-family: var(--font-display);
   font-size: clamp(5.2rem, 18vw, 12rem);
   font-weight: 900;
-  letter-spacing: -0.14em;
-  line-height: 0.8;
+  letter-spacing: -0.1em;
+  line-height: 0.86;
 }
 
 .intro-mark span { display: block; }
@@ -1692,16 +1705,18 @@ html.motion-pending .hero-line > span {
 }
 
 .lookbook-media {
+  display: grid;
+  place-items: center;
   flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
-  background: var(--red);
+  background: var(--ink-soft);
 }
 
 .lookbook-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .lookbook-card figcaption {
@@ -1869,7 +1884,7 @@ html.motion-pending .hero-line > span {
   }
   .lookbook-card { scroll-snap-align: start; }
 
-  .drop-intro-word { top: 35%; font-size: 33vw; }
+  .drop-intro-word { top: 35%; font-size: 15vw; }
 
   .drop-intro-copy h2,
   .statement-content h2,
@@ -1880,6 +1895,9 @@ html.motion-pending .hero-line > span {
   .closing-content h2,
   .look-copy h2,
   .lookbook-heading h2 { font-size: clamp(3.6rem, 16.5vw, 6.1rem); }
+
+  .campaign-copy h2 { font-size: clamp(3.25rem, 17cqi, 5.7rem); }
+  .look-copy h2 { font-size: clamp(3.25rem, 16cqi, 5rem); }
 
   .drop-intro-copy > p,
   .statement-content > p,
@@ -1934,7 +1952,7 @@ html.motion-pending .hero-line > span {
   .product-tile h3 { font-size: 2rem; }
 
   .symbol-section { min-height: 80dvh; }
-  .symbol-giant { left: 55%; font-size: 90vw; }
+  .symbol-giant { left: 68%; font-size: 54vw; }
   .symbol-line { left: -30%; width: 160%; }
   .symbol-content { gap: 4rem; }
 

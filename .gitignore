@@ -5,8 +5,8 @@ output/
 scripts/_cutout-preview/
 
 # Originais e utilitários locais de preparação de imagem.
-assets/
-scripts/
+/assets/
+/scripts/
 
 .env
 .env.*
