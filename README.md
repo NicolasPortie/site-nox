@@ -2,7 +2,7 @@
 
 Uma storefront editorial para o primeiro drop da NØR. Em vez de começar por uma grade de produtos, a navegação acompanha uma sequência visual que apresenta materiais, silhuetas e detalhes antes de chegar à coleção.
 
-Site: [nox.nicolasportie.com](https://nox.nicolasportie.com)
+Site: [nor.nicolasportie.com](https://nor.nicolasportie.com)
 
 ## A experiência
 
